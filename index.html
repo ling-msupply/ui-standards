@@ -3,7 +3,7 @@
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open mSupply UI Component Standards - MUI v9</title>
+    <title>Open mSupply Table Component Standards - MUI v9 & MRT</title>
     <style>
         /* =================================================================
            MUI V9 SPECIFICATIONS - APPLIED THROUGHOUT THIS DOCUMENT
@@ -402,6 +402,8 @@
             line-height: 1.43;
             border-bottom: 1px solid #E0E0E0;
             color: var(--tmf-charcoal);
+            vertical-align: middle;
+            /* white-space: nowrap; - Optional: Add to prevent wrapping if needed */
         }
         
         td {
@@ -410,6 +412,7 @@
             line-height: 1.43;
             border-bottom: 1px solid #E0E0E0;
             color: var(--tmf-charcoal);
+            vertical-align: top;
         }
         
         tbody tr {
@@ -620,7 +623,7 @@
 </head>
 <body>
     <div class="hero">
-        <h1>Open mSupply UI Component Standards</h1>
+        <h1>Open mSupply Table Component Standards</h1>
         <p>Design specifications using Material UI v9 and Material Design 3 principles with mSupply Foundation brand colors</p>
     </div>
     
@@ -674,7 +677,7 @@
                 <a class="sub-nav-link" href="#table-example">Example</a>
             </div>
             
-            <p style="margin-top: 24px;">Comprehensive standards for data tables in Open mSupply using MUI v9 DataGrid component. Tables are used extensively for shipments, inventory, orders, and stock management.</p>
+            <p style="margin-top: 24px;">Comprehensive standards for data tables in Open mSupply using MUI v9 Material React Table component. Tables are used extensively for shipments, inventory, orders, and stock management.</p>
             
             <!-- Collapsible Section: Structure -->
             <div class="collapsible-section">
@@ -685,7 +688,7 @@
                 <div class="collapsible-content active">
                     <div class="collapsible-inner">
             
-            <h5>Row Heights (Density)</h5>
+            <h4>Row Heights (Density)</h4>
             <div class="grid">
                 <div class="card">
                     <strong>Compact (40px)</strong>
@@ -947,8 +950,8 @@
             </div>
             
             <div class="code-block">
-<span class="com">// MUI DataGrid alignment - Headers MUST match cells</span>
-<span class="kw">const</span> columns: GridColDef[] = [
+<span class="com">// Material React Table alignment - Headers MUST match cells</span>
+<span class="kw">const</span> columns: MRT_ColumnDef[] = [
   {
     field: <span class="str">'itemName'</span>,
     headerName: <span class="str">'Item Name'</span>,
@@ -1059,7 +1062,7 @@
             </div>
             
             <div class="code-block">
-<span style="color: #718096;">// MUI DataGrid vertical alignment</span>
+<span style="color: #718096;">// Material React Table vertical alignment</span>
 {
   field: <span class="c2">'itemName'</span>,
   flex: 1,
@@ -1099,10 +1102,10 @@
 }
 
 <span style="color: #718096;">// Row height auto-adjusts for wrapped content</span>
-&lt;DataGrid
+&lt;Material React Table
   getRowHeight={() =&gt; <span class="c2">'auto'</span>}
   sx={{
-    <span class="c2">'&amp; .MuiDataGrid-cell'</span>: {
+    <span class="c2">'&amp; .MuiMaterial React Table-cell'</span>: {
       alignItems: <span class="c2">'flex-start'</span>,  <span style="color: #718096;">// Top-align cell content</span>
       py: 1.5,
     },
@@ -1154,7 +1157,7 @@
             </div>
             
             <div class="code-block">
-<span class="com">// MUI DataGrid with truncation + tooltip</span>
+<span class="com">// Material React Table with truncation + tooltip</span>
 <span class="kw">import</span> { Tooltip } <span class="kw">from</span> <span class="str">'@mui/material'</span>;
 
 {
@@ -1245,7 +1248,7 @@
             
             <h4>Keyboard Navigation</h4>
             <div class="info-box success">
-                <strong>✓ Built into MUI DataGrid</strong>
+                <strong>✓ Built into Material React Table</strong>
                 <ul>
                     <li><strong>Tab/Shift+Tab:</strong> Navigate elements</li>
                     <li><strong>Arrow keys:</strong> Navigate rows/columns</li>
@@ -1267,7 +1270,7 @@
             </div>
             
             <div class="code-block">
-<span class="com">// MUI DataGrid editable columns</span>
+<span class="com">// Material React Table editable columns</span>
 {
   field: <span class="str">'quantity'</span>,
   editable: <span class="kw">true</span>,
@@ -1317,15 +1320,15 @@
                 <strong>ℹ️ MUI v9 provides two table solutions:</strong>
                 <ul>
                     <li><strong>Basic Table (MUI Table)</strong> - Simple HTML <code>&lt;table&gt;</code> element. Use for: small datasets (&lt;100 rows), read-only displays, simple layouts, reports. <em>No built-in column resizing.</em></li>
-                    <li><strong>DataGrid (MUI X)</strong> - Advanced component using nested <code>&lt;div&gt;</code> elements. Use for: large datasets (100+ rows), interactive features (sorting, filtering, selection, pagination), complex column types. <em>Includes built-in column resizing - users can drag column separators.</em></li>
+                    <li><strong>Material React Table (MRT)</strong> - Advanced component using nested <code>&lt;div&gt;</code> elements. Use for: large datasets (100+ rows), interactive features (sorting, filtering, selection, pagination), complex column types. <em>Includes built-in column resizing - users can drag column separators.</em></li>
                 </ul>
             </div>
             
             <h4>Column Resizing</h4>
             
             <div style="background: #E3F2FD; padding: 12px 16px; border-left: 4px solid var(--tmf-blue); border-radius: 4px; margin: 16px 0;">
-                <p style="margin: 0; font-size: 14px;"><strong>🖱️ Interactive Resizing (DataGrid Only):</strong><br>
-                MUI X DataGrid supports column resizing by default. Users can drag the right edge of any column header to adjust width. To disable for specific columns, set <code>resizable: false</code> in the column definition. For Basic Tables, column widths are fixed in code only.</p>
+                <p style="margin: 0; font-size: 14px;"><strong>🖱️ Interactive Resizing (Material React Table Only):</strong><br>
+                Material React Table (MRT) supports column resizing by default. Users can drag the right edge of any column header to adjust width. To disable for specific columns, set <code>resizable: false</code> in the column definition. For Basic Tables, column widths are fixed in code only.</p>
             </div>
             
             <h4>Column Width Control</h4>
@@ -1352,7 +1355,7 @@
 &lt;<span class="kw">th</span> style=<span class="str">"min-width: 200px;"</span>&gt;Item Name&lt;/<span class="kw">th</span>&gt;
                 </div>
                 
-                <p style="margin-bottom: 12px; font-weight: 500; color: var(--tmf-charcoal);">DataGrid (MUI X) - Set in column definitions:</p>
+                <p style="margin-bottom: 12px; font-weight: 500; color: var(--tmf-charcoal);">Material React Table (MUI X) - Set in column definitions:</p>
                 <div class="code-block" style="margin: 0;">
 <span class="com">// FIXED WIDTH - Exact pixel value</span>
 { 
@@ -1402,7 +1405,7 @@
             </div>
             
             <div style="background: #E3F2FD; padding: 12px 16px; border-left: 4px solid var(--tmf-blue); border-radius: 4px; margin: 16px 0;">
-                <p style="margin: 0; font-size: 14px;"><strong>🖱️ How Users Resize Columns in DataGrid:</strong><br>
+                <p style="margin: 0; font-size: 14px;"><strong>🖱️ How Users Resize Columns in MRT:</strong><br>
                 Hover over the <strong>right edge of any column header</strong> - the cursor changes to a resize handle (↔). Click and drag left/right to adjust width. Release to set the new width. This works for all columns by default unless you set <code>resizable: false</code>.</p>
             </div>
             
@@ -1414,6 +1417,48 @@
                 • <strong>Large numbers:</strong> 110-140px (e.g., Currency with $ sign)<br>
                 • <strong>Short text:</strong> 120-160px (e.g., Status)<br>
                 • <strong>Long text:</strong> Use flex/no width (e.g., Item Name, Supplier)</p>
+            </div>
+            
+            <h4>Header Text Wrapping & Vertical Alignment</h4>
+            
+            <div class="info-box info">
+                <strong>📝 Header Text Wrapping - Choose Your Approach</strong>
+                <p style="margin-top: 8px; margin-bottom: 8px;"><strong>Option 1 - No Wrapping (nowrap):</strong> Use <code>white-space: nowrap</code> for compact tables with short header labels. Keeps header height consistent.</p>
+                <p style="margin: 0;"><strong>Option 2 - Allow Wrapping (wrap):</strong> Let headers wrap to 2-3 lines for longer labels. Better for small screens and when abbreviations reduce clarity. Set a <code>max-height</code> on headers to prevent excessive wrapping.</p>
+            </div>
+            
+            <div style="background: #FFF8E1; padding: 12px 16px; border-left: 4px solid #F89A01; border-radius: 4px; margin: 16px 0;">
+                <p style="margin: 0; font-size: 14px;"><strong>💡 For Open mSupply:</strong> Consider allowing wrapping for tablet/field use. Long clinical terms like "Temperature-Sensitive Vaccine Stock" are clearer when wrapped than abbreviated to "Temp-Sens Vaccine".</p>
+            </div>
+            
+            <div style="background: #F8F8F8; padding: 16px; border-radius: 4px; margin: 16px 0;">
+                <p style="margin-bottom: 12px; font-weight: 500; color: var(--tmf-charcoal);">Vertical Alignment Standards:</p>
+                <div class="code-block" style="margin: 0 0 12px 0;">
+<span class="com">// HEADERS - Always middle-aligned</span>
+th {
+  vertical-align: middle;  <span class="com">// Centers text vertically in header cell</span>
+}
+
+<span class="com">// DATA CELLS - Top-aligned for multi-line content</span>
+td {
+  vertical-align: top;     <span class="com">// Aligns to top when content wraps</span>
+}
+                </div>
+                <p style="margin: 0; font-size: 13px; color: rgba(0, 0, 0, 0.6);"><strong>Why?</strong> Top-aligned data cells keep the first line aligned across rows when content wraps (long names, descriptions), making tables easier to scan.</p>
+            </div>
+            
+            <h4>Default Column Width Behavior</h4>
+            
+            <div class="info-box info">
+                <strong>ℹ️ Material React Table Width Defaults</strong>
+                <p style="margin-top: 8px; margin-bottom: 0;">MRT does NOT use percentage widths. <strong>Without explicit <code>size:</code> values, columns auto-size based on content</strong> up to a reasonable maximum, then the table becomes horizontally scrollable. This prevents text truncation. <strong>Always set explicit sizes for predictable layouts.</strong></p>
+            </div>
+            
+            <div style="background: #FFF8E1; padding: 12px 16px; border-left: 4px solid #F89A01; border-radius: 4px; margin: 16px 0;">
+                <p style="margin: 0; font-size: 14px;"><strong>💡 Width Strategy:</strong><br>
+                <strong>Recommended:</strong> Set explicit <code>size:</code> for all columns based on content type<br>
+                <strong>Or mix:</strong> Fixed <code>size:</code> for structured data (codes, dates) + <code>grow: true</code> for text (names, descriptions)<br>
+                <strong>With constraints:</strong> Use <code>minSize:</code> and <code>maxSize:</code> to prevent columns getting too narrow/wide</p>
             </div>
             
             <h4>Basic Table Example</h4>
@@ -1496,7 +1541,7 @@
                 </ul>
             </div>
             
-            <h3 id="table-example">DataGrid Example (Advanced)</h3>
+            <h3 id="table-example">Material React Table Example (Advanced)</h3>
             
             <p style="margin-bottom: 12px; font-size: 14px; color: var(--tmf-blue);">Advanced interactive table with selection, sorting, filtering, and pagination - use for large datasets (100+ rows)</p>
             
@@ -1730,7 +1775,7 @@
             </div>
             
             <div class="info-box success">
-                <strong>✓ MUI X DataGrid Standards Applied</strong>
+                <strong>✓ Material React Table Standards Applied</strong>
                 <ul>
                     <li>Subtle grey header background (#FAFAFA) for better visual hierarchy</li>
                     <li>White row backgrounds (clean, no zebra striping)</li>
@@ -1747,33 +1792,47 @@
                 </ul>
             </div>
             
-            <h3>MUI DataGrid Implementation</h3>
+            <h3>Material React Table Implementation</h3>
             
             <div class="code-block">
-<span class="com">// Complete MUI v9 DataGrid setup</span>
-<span class="kw">import</span> { DataGrid, GridColDef } <span class="kw">from</span> <span class="str">'@mui/x-data-grid'</span>;
+<span class="com">// Complete Material React Table (MRT) setup</span>
+<span class="kw">import</span> { MaterialReactTable, type MRT_ColumnDef } <span class="kw">from</span> <span class="str">'material-react-table'</span>;
 
-<span class="kw">const</span> columns: GridColDef[] = [
-  { field: <span class="str">'code'</span>, headerName: <span class="str">'Code'</span>, width: <span class="num">140</span> },
-  { field: <span class="str">'itemName'</span>, headerName: <span class="str">'Item Name'</span>, flex: <span class="num">1</span>, minWidth: <span class="num">300</span> },
+<span class="kw">const</span> columns: MRT_ColumnDef&lt;ShipmentRow&gt;[] = [
   { 
-    field: <span class="str">'quantity'</span>, 
-    headerName: <span class="str">'Quantity'</span>,
-    type: <span class="str">'number'</span>,      <span class="com">// Right-align + tabular-nums</span>
-    width: <span class="num">120</span>,
-    align: <span class="str">'right'</span>,
-    headerAlign: <span class="str">'right'</span>,
+    accessorKey: <span class="str">'code'</span>, 
+    header: <span class="str">'Item Code'</span>, 
+    size: <span class="num">140</span>     <span class="com">// Fixed width</span>
   },
-  { field: <span class="str">'status'</span>, headerName: <span class="str">'Status'</span>, width: <span class="num">150</span> },
+  { 
+    accessorKey: <span class="str">'itemName'</span>, 
+    header: <span class="str">'Item Name'</span>, 
+    grow: <span class="kw">true</span>    <span class="com">// Flexible - takes remaining space</span>
+  },
+  { 
+    accessorKey: <span class="str">'quantity'</span>, 
+    header: <span class="str">'Quantity'</span>,
+    size: <span class="num">120</span>,
+    muiTableHeadCellProps: { align: <span class="str">'right'</span> },
+    muiTableBodyCellProps: { align: <span class="str">'right'</span> },
+  },
+  { 
+    accessorKey: <span class="str">'status'</span>, 
+    header: <span class="str">'Status'</span>, 
+    size: <span class="num">150</span> 
+  },
 ];
 
-&lt;<span class="kw">DataGrid</span>
-  rows={rows}
+&lt;<span class="kw">MaterialReactTable</span>
+  data={data}
   columns={columns}
-  checkboxSelection
-  density=<span class="str">"comfortable"</span>
-  pagination
-  pageSizeOptions={[<span class="num">25</span>, <span class="num">50</span>, <span class="num">100</span>]}
+  enableRowSelection
+  enableSorting
+  enableColumnResizing       <span class="com">// Users can drag column edges</span>
+  columnResizeMode=<span class="str">"onChange"</span>  <span class="com">// Live resize (or "onEnd")</span>
+  initialState={{
+    density: <span class="str">'comfortable'</span>,   <span class="com">// 'compact' | 'comfortable' | 'spacious'</span>
+  }}
 /&gt;
             </div>
         </div></div></div></section>
@@ -1941,7 +2000,7 @@
             </div>
             
             <div class="code-block">
-<span class="com">/* MUI DataGrid - automatic when type: 'number' */</span>
+<span class="com">/* Material React Table - automatic when type: 'number' */</span>
 {
   field: <span class="str">'quantity'</span>,
   type: <span class="str">'number'</span>,        <span class="com">// Auto right-align + tabular-nums</span>
@@ -2010,8 +2069,8 @@
             </div>
             
             <div class="code-block">
-<span class="com">// MUI DataGrid sorting</span>
-&lt;<span class="kw">DataGrid</span>
+<span class="com">// Material React Table sorting</span>
+&lt;<span class="kw">Material React Table</span>
   sortModel={sortModel}
   onSortModelChange={setSortModel}
 /&gt;
@@ -2019,7 +2078,7 @@
             
             <h3>4.3 Keyboard Navigation</h3>
             <div class="info-box success">
-                <strong>✓ Built into MUI DataGrid</strong>
+                <strong>✓ Built into Material React Table</strong>
                 <ul>
                     <li><strong>Tab/Shift+Tab:</strong> Navigate elements</li>
                     <li><strong>Arrow keys:</strong> Navigate rows/columns</li>
@@ -2047,7 +2106,7 @@
             </div>
             
             <div class="code-block">
-<span class="com">// MUI DataGrid editable columns</span>
+<span class="com">// Material React Table editable columns</span>
 {
   field: <span class="str">'quantity'</span>,
   editable: <span class="kw">true</span>,
@@ -2137,7 +2196,7 @@
                     <li><strong>Material Design 3 standard</strong> - Modern, recommended approach</li>
                     <li><strong>Floating label saves space</strong> - Label moves to border when focused/filled</li>
                     <li><strong>Clear visual boundaries</strong> - Better for tablet touch interfaces</li>
-                    <li><strong>Consistent with MUI</strong> - Matches DataGrid editable cells</li>
+                    <li><strong>Consistent with MUI</strong> - Matches Material React Table editable cells</li>
                 </ul>
             </div>
             
@@ -2675,7 +2734,7 @@
             
             <h3>8.3 Keyboard Navigation Support</h3>
             <div class="info-box success">
-                <strong>✓ Required Keyboard Shortcuts (Built into MUI DataGrid)</strong>
+                <strong>✓ Required Keyboard Shortcuts (Built into Material React Table)</strong>
                 <ul>
                     <li><strong>Tab / Shift+Tab:</strong> Navigate through interactive elements</li>
                     <li><strong>Arrow Up/Down:</strong> Navigate table rows</li>
@@ -2690,8 +2749,8 @@
             
             <h3>8.4 Screen Reader Support</h3>
             <div class="code-block">
-<span class="com">// Proper ARIA labels for MUI DataGrid</span>
-&lt;<span class="kw">DataGrid</span>
+<span class="com">// Proper ARIA labels for Material React Table</span>
+&lt;<span class="kw">Material React Table</span>
   aria-label=<span class="str">"Inbound shipments data table"</span>
   aria-describedby=<span class="str">"table-description"</span>
 /&gt;
