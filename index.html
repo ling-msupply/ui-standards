@@ -49,7 +49,6 @@
         
         html {
             scroll-padding-top: 140px; /* Account for sticky nav (60px) + sub-nav (~80px) */
-            scroll-behavior: smooth; /* Smooth scrolling for anchor links */
         }
         
         :root {
@@ -227,11 +226,22 @@
         }
         
         .page-section { 
-            display: none; 
+            display: none !important;
         }
         
         .page-section.active { 
-            display: block; 
+            display: block !important;
+        }
+        
+        /* Ensure sticky elements don't bleed out of hidden sections */
+        .page-section:not(.active) .sub-nav {
+            display: none;
+        }
+        
+        /* Prevent collapsible transitions from overflowing hidden sections */
+        .page-section:not(.active) .collapsible-content {
+            max-height: 0 !important;
+            transition: none !important;
         }
         
         h2 {
@@ -1298,9 +1308,6 @@ th:has(input[type="checkbox"]) {
                 <p style="margin: 0; font-size: 14px;"><strong>💡 Not Recommended: Popover Filters</strong> - While MRT supports <code>columnFilterDisplayMode: 'popover'</code> (Excel-style filter icons), this approach hides filters by default, requires extra clicks, and is less intuitive for field users on tablets. Save popover mode for advanced users or desktop-only applications.</p>
             </div>
             
-            
-            </div>
-            
             <!-- Collapsible Section: Structure -->
             <div class="collapsible-section">
                 <div class="collapsible-header active" onclick="toggleCollapsible(this)">
@@ -1983,7 +1990,10 @@ th:has(input[type="checkbox"]) {
   }}
 /&gt;
             </div>
-        </div></div></div></section>
+        </div>
+        
+                </div><!-- end collapsible-content -->
+            </div><!-- end collapsible-section -->
         
         <!-- STRUCTURE (OLD) - Remove this -->
         <section id="structure-old" style="display:none;" class="page-section">
@@ -2036,7 +2046,9 @@ th:has(input[type="checkbox"]) {
                 <li><strong>Dates:</strong> 130px fixed</li>
                 <li><strong>Status:</strong> 120-150px fixed</li>
             </ul>
-        </section>
+        </section><!-- End structure-old -->
+        
+        </section><!-- End tables section -->
         
         <!-- TYPOGRAPHY -->
         <section id="typography" class="page-section">
@@ -3002,9 +3014,10 @@ th:has(input[type="checkbox"]) {
         }
         
         function switchTo(sectionId) {
-            // Remove active class from all sections
+            // Hide ALL sections immediately FIRST
             document.querySelectorAll('.page-section').forEach(function(section) {
                 section.classList.remove('active');
+                section.style.display = 'none';
             });
             
             // Remove active class from all nav buttons
@@ -3012,17 +3025,18 @@ th:has(input[type="checkbox"]) {
                 btn.classList.remove('active');
             });
             
-            // Add active class to target section
+            // Show target section
             var targetSection = document.getElementById(sectionId);
             if (targetSection) {
+                targetSection.style.display = 'block';
                 targetSection.classList.add('active');
             }
             
             // Add active class to clicked button
             event.target.classList.add('active');
             
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // NOW scroll to top (sections already switched so nothing to see during scroll)
+            window.scrollTo(0, 0);
         }
         
         // Interactive checkbox selection
