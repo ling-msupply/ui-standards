@@ -641,8 +641,664 @@
             
             <p style="margin-top: 24px;">Comprehensive standards for data tables in Open mSupply using MUI v9 and Material React Table (MRT), a third-party table library built on TanStack Table and MUI.</p>
             
+            <h3 id="table-example">Table Examples</h3>
+            
+            <p style="margin-bottom: 16px; font-size: 14px; color: var(--tmf-blue);">See what tables look like in practice, then explore the detailed standards below.</p>
+            
+            <h3>Table Component Types</h3>
+            
+            <div class="info-box info">
+                <strong>ℹ️ MUI v9 provides two table solutions:</strong>
+                <ul>
+                    <li><strong>Basic Table (MUI Table)</strong> - Simple HTML <code>&lt;table&gt;</code> element. Use for: small datasets (&lt;100 rows), read-only displays, simple layouts, reports. <em>No built-in column resizing.</em></li>
+                    <li><strong>Material React Table (MRT)</strong> - Advanced component using nested <code>&lt;div&gt;</code> elements. Use for: large datasets (100+ rows), interactive features (sorting, filtering, selection, pagination), complex column types. <em>Includes built-in column resizing - users can drag column separators.</em></li>
+                </ul>
+            </div>
+            
+            <h4>Basic Table Example</h4>
+            
+            <p style="margin-bottom: 12px; font-size: 14px; color: var(--tmf-blue);">Simple read-only table with MUI v9 styling - no selection, sorting, or pagination</p>
+            
+            <div class="demo">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 140px;">Item Code</th>
+                            <th>Item Name</th>
+                            <th style="width: 120px;">Batch Number</th>
+                            <th style="width: 110px;">Expiry Date</th>
+                            <th class="numeric" style="width: 100px;">Quantity</th>
+                            <th class="numeric" style="width: 110px;">Unit Price</th>
+                            <th class="numeric" style="width: 120px;">Total Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>MED-ASA-300</td>
+                            <td>Acetylsalicylic Acid 300mg Tablet</td>
+                            <td>B2487-594</td>
+                            <td>01/10/2028</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">2,000</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$0.12</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$240.00</td>
+                        </tr>
+                        <tr>
+                            <td>MED-AMX-125S</td>
+                            <td>Amoxicillin 125mg/5ml Suspension</td>
+                            <td>B2484-662</td>
+                            <td>17/03/2029</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">150</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$3.45</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$517.50</td>
+                        </tr>
+                        <tr>
+                            <td>MED-FUR-20I</td>
+                            <td>Furosemide 10mg/ml Solution 2ml</td>
+                            <td>B2459-750</td>
+                            <td>11/10/2028</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">450</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$1.20</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$540.00</td>
+                        </tr>
+                        <tr>
+                            <td>MED-PAR-500</td>
+                            <td>Paracetamol 500mg Tablet</td>
+                            <td>B2491-328</td>
+                            <td>22/08/2027</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">5,000</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$0.08</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$400.00</td>
+                        </tr>
+                        <tr>
+                            <td>MED-IBU-200</td>
+                            <td>Ibuprofen 200mg Tablet</td>
+                            <td>B2488-447</td>
+                            <td>15/12/2028</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">3,200</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$0.15</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$480.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            
+            <h3 id="table-example">Material React Table Example (Advanced)</h3>
+            
+            <p style="margin-bottom: 12px; font-size: 14px; color: var(--tmf-blue);">Advanced interactive table with selection, sorting, and pagination - use for large datasets (100+ rows). MRT supports multiple filtering UIs: column filters below headers, global search, or popover filters.</p>
+            
+            <div class="demo">
+                <!-- Toolbar with title and actions -->
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; border-bottom: 1px solid #E0E0E0;">
+                    <div>
+                        <h6 style="margin: 0 0 4px 0; font-size: 20px; font-weight: 500; color: var(--tmf-charcoal);">Inbound Shipments</h6>
+                        <div style="font-size: 14px; color: rgba(0, 0, 0, 0.6);">12 shipments • 1 selected</div>
+                    </div>
+                    <div style="display: flex; gap: 12px; align-items: center;">
+                        <button class="btn btn-secondary">Export</button>
+                        <button class="btn btn-primary">+ New Shipment</button>
+                    </div>
+                </div>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 48px; vertical-align: middle;"><input type="checkbox" class="checkbox"></th>
+                            <th class="sortable" style="width: 140px;">Shipment ID</th>
+                            <th class="sortable" style="width: 180px;">Supplier <span style="font-size: 18px; opacity: 0.5; margin-left: 4px; vertical-align: middle;">↓</span></th>
+                            <th class="sortable">Reference</th>
+                            <th class="sortable" style="width: 120px;">Created Date</th>
+                            <th class="sortable numeric" style="width: 100px;">Line Items</th>
+                            <th class="sortable numeric" style="width: 120px;">Total Units</th>
+                            <th class="sortable numeric" style="width: 130px;">Value (USD)</th>
+                            <th style="width: 140px;">Status</th>
+                            <th style="text-align: right; width: 80px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="vertical-align: middle;"><input type="checkbox" class="checkbox"></td>
+                            <td>SHP-2024-1847</td>
+                            <td>UNICEF Supply Division</td>
+                            <td>PO-UNICEF-09234</td>
+                            <td>23/05/2026</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">12</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">8,450</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$24,680.00</td>
+                            <td><span class="status in-transit"><span class="status-dot" style="background: var(--highlight-yellow);"></span>In Transit</span></td>
+                            <td style="text-align: right;">
+                                <button style="padding: 6px 12px; border: 1px solid #E0E0E0; border-radius: 4px; cursor: pointer; font-size: 13px; background: white; font-family: inherit;">View</button>
+                            </td>
+                        </tr>
+                        <tr class="selected">
+                            <td style="vertical-align: middle;"><input type="checkbox" class="checkbox" checked=""></td>
+                            <td>SHP-2024-1846</td>
+                            <td>MSF Logistics</td>
+                            <td>MSF-DRC-05-2026</td>
+                            <td>22/05/2026</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">8</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">3,200</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$12,450.00</td>
+                            <td><span class="status delivered"><span class="status-dot" style="background: var(--highlight-green);"></span>Delivered</span></td>
+                            <td style="text-align: right;">
+                                <button style="padding: 6px 12px; border: 1px solid #E0E0E0; border-radius: 4px; cursor: pointer; font-size: 13px; background: white; font-family: inherit;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;"><input type="checkbox" class="checkbox"></td>
+                            <td>SHP-2024-1845</td>
+                            <td>WHO Essential Medicines</td>
+                            <td>WHO-AFG-Q2-2026</td>
+                            <td>21/05/2026</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">24</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">15,670</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$48,920.00</td>
+                            <td><span class="status in-transit"><span class="status-dot" style="background: var(--highlight-yellow);"></span>In Transit</span></td>
+                            <td style="text-align: right;">
+                                <button style="padding: 6px 12px; border: 1px solid #E0E0E0; border-radius: 4px; cursor: pointer; font-size: 13px; background: white; font-family: inherit;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;"><input type="checkbox" class="checkbox"></td>
+                            <td>SHP-2024-1844</td>
+                            <td>Global Fund Procurement</td>
+                            <td>GF-MAL-04-2026</td>
+                            <td>20/05/2026</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">6</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">1,800</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$8,950.00</td>
+                            <td><span class="status delivered"><span class="status-dot" style="background: var(--highlight-green);"></span>Delivered</span></td>
+                            <td style="text-align: right;">
+                                <button style="padding: 6px 12px; border: 1px solid #E0E0E0; border-radius: 4px; cursor: pointer; font-size: 13px; background: white; font-family: inherit;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;"><input type="checkbox" class="checkbox"></td>
+                            <td>SHP-2024-1843</td>
+                            <td>GAVI Alliance Supply Chain</td>
+                            <td>GAVI-COVAX-2026-Q2</td>
+                            <td>19/05/2026</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">18</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">22,400</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$67,200.00</td>
+                            <td><span class="status in-transit"><span class="status-dot" style="background: var(--highlight-yellow);"></span>In Transit</span></td>
+                            <td style="text-align: right;">
+                                <button style="padding: 6px 12px; border: 1px solid #E0E0E0; border-radius: 4px; cursor: pointer; font-size: 13px; background: white; font-family: inherit;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;"><input type="checkbox" class="checkbox"></td>
+                            <td>SHP-2024-1842</td>
+                            <td>Clinton Health Access Initiative</td>
+                            <td>CHAI-HIV-2026-05</td>
+                            <td>18/05/2026</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">9</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">4,500</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$18,750.00</td>
+                            <td><span class="status new"><span class="status-dot" style="background: var(--highlight-blue);"></span>New</span></td>
+                            <td style="text-align: right;">
+                                <button style="padding: 6px 12px; border: 1px solid #E0E0E0; border-radius: 4px; cursor: pointer; font-size: 13px; background: white; font-family: inherit;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;"><input type="checkbox" class="checkbox"></td>
+                            <td>SHP-2024-1841</td>
+                            <td>PATH Procurement Services</td>
+                            <td>PATH-TB-2026-Q2</td>
+                            <td>17/05/2026</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">15</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">6,800</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$31,400.00</td>
+                            <td><span class="status delivered"><span class="status-dot" style="background: var(--highlight-green);"></span>Delivered</span></td>
+                            <td style="text-align: right;">
+                                <button style="padding: 6px 12px; border: 1px solid #E0E0E0; border-radius: 4px; cursor: pointer; font-size: 13px; background: white; font-family: inherit;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;"><input type="checkbox" class="checkbox"></td>
+                            <td>SHP-2024-1840</td>
+                            <td>USAID Global Health Supply Chain</td>
+                            <td>USAID-GHSC-AFG-2026</td>
+                            <td>16/05/2026</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">31</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">28,900</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$89,340.00</td>
+                            <td><span class="status in-transit"><span class="status-dot" style="background: var(--highlight-yellow);"></span>In Transit</span></td>
+                            <td style="text-align: right;">
+                                <button style="padding: 6px 12px; border: 1px solid #E0E0E0; border-radius: 4px; cursor: pointer; font-size: 13px; background: white; font-family: inherit;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;"><input type="checkbox" class="checkbox"></td>
+                            <td>SHP-2024-1839</td>
+                            <td>UNFPA Supplies</td>
+                            <td>UNFPA-RH-2026-05</td>
+                            <td>15/05/2026</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">7</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">2,100</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$9,450.00</td>
+                            <td><span class="status delivered"><span class="status-dot" style="background: var(--highlight-green);"></span>Delivered</span></td>
+                            <td style="text-align: right;">
+                                <button style="padding: 6px 12px; border: 1px solid #E0E0E0; border-radius: 4px; cursor: pointer; font-size: 13px; background: white; font-family: inherit;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;"><input type="checkbox" class="checkbox"></td>
+                            <td>SHP-2024-1838</td>
+                            <td>International Dispensary Association</td>
+                            <td>IDA-GEN-2026-123</td>
+                            <td>14/05/2026</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">11</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">5,600</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$22,800.00</td>
+                            <td><span class="status new"><span class="status-dot" style="background: var(--highlight-blue);"></span>New</span></td>
+                            <td style="text-align: right;">
+                                <button style="padding: 6px 12px; border: 1px solid #E0E0E0; border-radius: 4px; cursor: pointer; font-size: 13px; background: white; font-family: inherit;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;"><input type="checkbox" class="checkbox"></td>
+                            <td>SHP-2024-1837</td>
+                            <td>Médecins Sans Frontières</td>
+                            <td>MSF-EMG-2026-042</td>
+                            <td>13/05/2026</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">19</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">11,200</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$42,680.00</td>
+                            <td><span class="status delivered"><span class="status-dot" style="background: var(--highlight-green);"></span>Delivered</span></td>
+                            <td style="text-align: right;">
+                                <button style="padding: 6px 12px; border: 1px solid #E0E0E0; border-radius: 4px; cursor: pointer; font-size: 13px; background: white; font-family: inherit;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;"><input type="checkbox" class="checkbox"></td>
+                            <td>SHP-2024-1836</td>
+                            <td>Crown Agents</td>
+                            <td>CA-MOH-2026-Q2</td>
+                            <td>12/05/2026</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">14</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">9,300</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$36,250.00</td>
+                            <td><span class="status in-transit"><span class="status-dot" style="background: var(--highlight-yellow);"></span>In Transit</span></td>
+                            <td style="text-align: right;">
+                                <button style="padding: 6px 12px; border: 1px solid #E0E0E0; border-radius: 4px; cursor: pointer; font-size: 13px; background: white; font-family: inherit;">View</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <!-- Pagination footer -->
+                <div style="display: flex; justify-content: flex-end; align-items: center; padding: 8px 16px; border-top: 1px solid #E0E0E0; font-size: 14px; color: rgba(0, 0, 0, 0.87); gap: 24px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="color: rgba(0, 0, 0, 0.6);">Rows per page:</span>
+                        <select style="border: none; background: transparent; font-size: 14px; color: rgba(0, 0, 0, 0.87); cursor: pointer; font-family: inherit; outline: none;">
+                            <option>10</option>
+                            <option>25</option>
+                            <option>50</option>
+                            <option>100</option>
+                        </select>
+                    </div>
+                    <div style="color: rgba(0, 0, 0, 0.6);">1-12 of 47</div>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <button style="padding: 6px; border: none; background: transparent; cursor: not-allowed; font-size: 18px; color: rgba(0, 0, 0, 0.26); min-width: 32px; font-family: inherit;" disabled>‹</button>
+                        <button style="padding: 6px; border: none; background: transparent; cursor: pointer; font-size: 18px; color: rgba(0, 0, 0, 0.87); min-width: 32px; font-family: inherit;">›</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-box success">
+                <strong>✓ Basic Table Standards</strong>
+                <ul>
+                    <li>Subtle grey header background (#FAFAFA) for visual hierarchy</li>
+                    <li>White data rows (clean, simple)</li>
+                    <li>Compact density (~48px rows)</li>
+                    <li>Fixed widths for structured columns (codes, dates, numbers)</li>
+                    <li>Flexible width for Item Name (no width set = takes remaining space)</li>
+                    <li>Right-aligned numbers with tabular-nums</li>
+                    <li>Hover effect on rows for scannability</li>
+                </ul>
+            </div>
+<div style="background: #E8F5E9; padding: 12px 16px; border-left: 4px solid var(--highlight-green); border-radius: 4px; margin: 16px 0;">
+                <p style="margin: 0; font-size: 14px;"><strong>ℹ️ Note:</strong> This is a <strong>static HTML mockup</strong> showing what a Material React Table looks like. In your actual React application, the real <code>&lt;MaterialReactTable&gt;</code> component would have interactive sorting, filtering, column resizing, and all MRT features fully functional.</p>
+            </div>
+            
+            <div style="background: #E3F2FD; padding: 12px 16px; border-left: 4px solid var(--tmf-blue); border-radius: 4px; font-size: 13px; color: rgba(0, 0, 0, 0.87); margin: 16px 0;">
+                <strong>🔍 MRT Filtering Options:</strong> Material React Table supports <strong>(1) Column Filters</strong> - text fields below each header (enable with <code>showColumnFilters: true</code>), <strong>(2) Global Search</strong> - single search box in toolbar for all columns (enable with <code>showGlobalFilter: true</code>), or <strong>(3) Popover Filters</strong> - filter icons in headers that open filter popovers (set <code>columnFilterDisplayMode: 'popover'</code>). This example shows the table without active filters displayed.
+            </div>
+            
+            <div class="info-box success">
+                <strong>✓ Material React Table (MRT) Standards Applied</strong>
+                <ul>
+                    <li>Subtle grey header background (#FAFAFA) for better visual hierarchy</li>
+                    <li>White row backgrounds (clean, no zebra striping)</li>
+                    <li>Compact density (~48px rows for data-heavy contexts)</li>
+                    <li>Sortable columns with visible orange ↑ ↓ indicators when sorted</li>
+                    <li>Interactive row selection with header "Select All" checkbox</li>
+                    <li>Selection highlight: subtle blue background</li>
+                    <li>Hover states: light grey on all rows, stronger blue on selected</li>
+                    <li>Right-aligned numbers with tabular-nums</li>
+                    <li>Status chips with 16px border-radius (pill shape)</li>
+                    <li>Toolbar with title, metadata, and action buttons</li>
+                    
+                    <li>Default pagination: TablePagination style with rows-per-page dropdown and prev/next arrows (use <code>paginationDisplayMode: 'pages'</code> for numbered buttons)</li>
+                </ul>
+            </div>
+            
+            <h4>Column Resizing</h4>
+            
+            <div style="background: #E3F2FD; padding: 12px 16px; border-left: 4px solid var(--tmf-blue); border-radius: 4px; margin: 16px 0;">
+                <p style="margin: 0; font-size: 14px;"><strong>🖱️ Interactive Resizing (Material React Table Only):</strong><br>
+                Material React Table (MRT) supports column resizing by default. Users can drag the right edge of any column header to adjust width. To disable for specific columns, set <code>resizable: false</code> in the column definition. For Basic Tables, column widths are fixed in code only.</p>
+            </div>
+            
+            <h4>Column Width Control</h4>
+            
+            <div class="info-box info">
+                <strong>ℹ️ How to Adjust Column Widths</strong>
+                <p style="margin-top: 8px; margin-bottom: 12px;">Column widths balance readability with space efficiency. Use fixed widths for predictable content (codes, dates, numbers) and flexible widths for variable content (names, descriptions).</p>
+            </div>
+            
+            <div style="background: #F8F8F8; padding: 16px; border-radius: 4px; margin: 16px 0;">
+                <p style="margin-bottom: 12px; font-weight: 500; color: var(--tmf-charcoal);">Basic Table (HTML) - Adjust in the <code>&lt;th&gt;</code> tag:</p>
+                <div class="code-block" style="margin: 0 0 16px 0;">
+<span class="com">// FIXED WIDTH - Use for predictable content</span>
+&lt;<span class="kw">th</span> style=<span class="str">"width: 120px;"</span>&gt;Item Code&lt;/<span class="kw">th</span>&gt;        <span class="com">// Codes: 100-150px</span>
+&lt;<span class="kw">th</span> style=<span class="str">"width: 110px;"</span>&gt;Expiry Date&lt;/<span class="kw">th</span>&gt;     <span class="com">// Dates: 100-120px</span>
+&lt;<span class="kw">th</span> class=<span class="str">"numeric"</span> style=<span class="str">"width: 100px;"</span>&gt;Quantity&lt;/<span class="kw">th</span>&gt;  <span class="com">// Numbers: 80-120px</span>
+
+<span class="com">// FLEXIBLE WIDTH - Takes remaining space</span>
+&lt;<span class="kw">th</span>&gt;Item Name&lt;/<span class="kw">th</span>&gt;  <span class="com">// No width = expands to fill available space</span>
+
+<span class="com">// EXAMPLE: Making Item Name wider</span>
+<span class="com">// Option 1: Reduce other columns (120px → 100px)</span>
+<span class="com">// Option 2: Add min-width to prevent it getting too narrow</span>
+&lt;<span class="kw">th</span> style=<span class="str">"min-width: 200px;"</span>&gt;Item Name&lt;/<span class="kw">th</span>&gt;
+                </div>
+                
+                <p style="margin-bottom: 12px; font-weight: 500; color: var(--tmf-charcoal);">Material React Table (MRT) - Set in column definitions:</p>
+                <div class="code-block" style="margin: 0;">
+<span class="com">// FIXED WIDTH - Exact pixel value</span>
+{ 
+  field: <span class="str">'itemCode'</span>, 
+  headerName: <span class="str">'Item Code'</span>, 
+  width: <span class="num">140</span>         <span class="com">// Fixed at 140px</span>
+}
+
+<span class="com">// FLEXIBLE WIDTH - Proportional to available space</span>
+{ 
+  field: <span class="str">'itemName'</span>, 
+  headerName: <span class="str">'Item Name'</span>, 
+  flex: <span class="num">1</span>            <span class="com">// Takes remaining space</span>
+}
+
+{ 
+  field: <span class="str">'supplier'</span>, 
+  headerName: <span class="str">'Supplier'</span>, 
+  flex: <span class="num">2</span>            <span class="com">// Gets 2x space compared to flex: 1</span>
+}
+
+<span class="com">// MINIMUM WIDTH - Prevents column getting too narrow</span>
+{ 
+  field: <span class="str">'reference'</span>, 
+  headerName: <span class="str">'Reference'</span>, 
+  flex: <span class="num">1</span>,
+  minWidth: <span class="num">150</span>      <span class="com">// Won't shrink below 150px</span>
+}
+
+<span class="com">// DISABLE RESIZING - Prevent user from dragging to resize</span>
+{ 
+  field: <span class="str">'status'</span>, 
+  headerName: <span class="str">'Status'</span>, 
+  width: <span class="num">140</span>,
+  resizable: <span class="kw">false</span>   <span class="com">// User cannot resize this column</span>
+}
+
+<span class="com">// CONSTRAIN RESIZING - Set min/max limits</span>
+{ 
+  field: <span class="str">'supplier'</span>, 
+  headerName: <span class="str">'Supplier'</span>, 
+  width: <span class="num">180</span>,
+  minWidth: <span class="num">120</span>,    <span class="com">// Can't resize smaller than 120px</span>
+  maxWidth: <span class="num">300</span>     <span class="com">// Can't resize larger than 300px</span>
+}
+                </div>
+            </div>
+            
+            <div style="background: #E3F2FD; padding: 12px 16px; border-left: 4px solid var(--tmf-blue); border-radius: 4px; margin: 16px 0;">
+                <p style="margin: 0; font-size: 14px;"><strong>🖱️ How Users Resize Columns in MRT:</strong><br>
+                Hover over the <strong>right edge of any column header</strong> - the cursor changes to a resize handle (↔). Click and drag left/right to adjust width. Release to set the new width. This works for all columns by default unless you set <code>resizable: false</code>.</p>
+            </div>
+            
             <div style="background: #FFF8E1; padding: 12px 16px; border-left: 4px solid #F89A01; border-radius: 4px; margin: 16px 0;">
-                <p style="margin: 0; font-size: 14px;"><strong>💡 First time here?</strong> Skip to <a href="#table-example" style="color: var(--tmf-orange); font-weight: 500;">Table Examples</a> to see what tables look like, then come back to explore the detailed standards.</p>
+                <p style="margin: 0; font-size: 14px;"><strong>💡 Tip:</strong> Start with these recommended widths, then adjust based on your actual data:<br>
+                • <strong>Codes/IDs:</strong> 100-150px<br>
+                • <strong>Dates:</strong> 100-120px<br>
+                • <strong>Small numbers:</strong> 80-100px (e.g., Quantity)<br>
+                • <strong>Large numbers:</strong> 110-140px (e.g., Currency with $ sign)<br>
+                • <strong>Short text:</strong> 120-160px (e.g., Status)<br>
+                • <strong>Long text:</strong> Use flex/no width (e.g., Item Name, Supplier)</p>
+            </div>
+            
+            <h4>Header Text Wrapping & Vertical Alignment</h4>
+            
+            <div class="info-box info">
+                <strong>📝 Header Text Wrapping - Choose Your Approach</strong>
+                <p style="margin-top: 8px; margin-bottom: 8px;"><strong>Option 1 - No Wrapping (nowrap):</strong> Use <code>white-space: nowrap</code> for compact tables with short header labels. Keeps header height consistent.</p>
+                <p style="margin: 0;"><strong>Option 2 - Allow Wrapping (wrap):</strong> Let headers wrap to 2-3 lines for longer labels. Better for small screens and when abbreviations reduce clarity. Set a <code>max-height</code> on headers to prevent excessive wrapping.</p>
+            </div>
+            
+            <div style="background: #FFF8E1; padding: 12px 16px; border-left: 4px solid #F89A01; border-radius: 4px; margin: 16px 0;">
+                <p style="margin: 0; font-size: 14px;"><strong>💡 For Open mSupply:</strong> Consider allowing wrapping for tablet/field use. Long clinical terms like "Temperature-Sensitive Vaccine Stock" are clearer when wrapped than abbreviated to "Temp-Sens Vaccine".</p>
+            </div>
+            
+            <div style="background: #F8F8F8; padding: 16px; border-radius: 4px; margin: 16px 0;">
+                <p style="margin-bottom: 12px; font-weight: 500; color: var(--tmf-charcoal);">Vertical Alignment Standards:</p>
+                <div class="code-block" style="margin: 0 0 12px 0;">
+<span class="com">// HEADERS - Always middle-aligned</span>
+th {
+  vertical-align: middle;  <span class="com">// Centers text vertically in header cell</span>
+}
+
+<span class="com">// DATA CELLS - Top-aligned for multi-line content</span>
+td {
+  vertical-align: top;     <span class="com">// Aligns to top when content wraps</span>
+}
+
+<span class="com">// EXCEPTION: Checkbox cells - Always middle-aligned</span>
+td:has(input[type="checkbox"]),
+th:has(input[type="checkbox"]) {
+  vertical-align: middle;  <span class="com">// Centers checkbox in cell</span>
+}
+                </div>
+                <p style="margin: 0; font-size: 13px; color: rgba(0, 0, 0, 0.6);"><strong>Why?</strong> Top-aligned data cells keep the first line aligned across rows when content wraps (long names, descriptions), making tables easier to scan. <strong>Exception:</strong> Checkbox cells use middle-align to center the checkbox vertically in the cell, even when adjacent text cells wrap to multiple lines.</p>
+            </div>
+            
+            <h4>Default Column Width Behavior</h4>
+            
+            <div class="info-box info">
+                <strong>ℹ️ Material React Table Width Defaults</strong>
+                <p style="margin-top: 8px; margin-bottom: 0;">MRT does NOT use percentage widths. <strong>Without explicit <code>size:</code> values, columns auto-size based on content</strong> up to a reasonable maximum, then the table becomes horizontally scrollable. This prevents text truncation. <strong>Always set explicit sizes for predictable layouts.</strong></p>
+            </div>
+            
+            <div style="background: #FFF8E1; padding: 12px 16px; border-left: 4px solid #F89A01; border-radius: 4px; margin: 16px 0;">
+                <p style="margin: 0; font-size: 14px;"><strong>💡 Width Strategy:</strong><br>
+                <strong>Recommended:</strong> Set explicit <code>size:</code> for all columns based on content type<br>
+                <strong>Or mix:</strong> Fixed <code>size:</code> for structured data (codes, dates) + <code>grow: true</code> for text (names, descriptions)<br>
+                <strong>With constraints:</strong> Use <code>minSize:</code> and <code>maxSize:</code> to prevent columns getting too narrow/wide</p>
+            </div>
+            
+            
+            
+            <h3>Filtering Strategy for Open mSupply</h3>
+            
+            <div class="info-box success">
+                <strong>✓ Recommended Approach: Column Filters + Global Search</strong>
+                <p style="margin-top: 8px; margin-bottom: 0;">Based on Open mSupply's health supply chain context, tablet deployment, and data-heavy tables, we recommend using <strong>Column Filters</strong> (text fields below headers) as the primary filtering method, combined with <strong>Global Search</strong> for quick lookups.</p>
+            </div>
+            
+            <h4>Filtering Example</h4>
+            
+            <p style="margin-bottom: 12px; font-size: 14px; color: var(--tmf-blue);">Interactive example showing column filters below headers + global search in toolbar</p>
+            
+            <div class="demo">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid #E0E0E0;">
+                    <h6 style="margin: 0; font-size: 20px; font-weight: 500; color: var(--tmf-charcoal);">Stock Items</h6>
+                    <div style="display: flex; gap: 12px; align-items: center;">
+                        <input type="text" placeholder="Search all columns..." style="padding: 8px 12px; border: 1px solid #E0E0E0; border-radius: 4px; font-size: 14px; width: 220px; font-family: inherit;" />
+                        <button class="btn btn-primary">+ New Item</button>
+                    </div>
+                </div>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 140px;">Item Code</th>
+                            <th style="width: 250px;">Item Name</th>
+                            <th style="width: 140px;">Category</th>
+                            <th class="numeric" style="width: 120px;">Stock Level</th>
+                            <th style="width: 140px;">Status</th>
+                        </tr>
+                        <tr style="background: #FAFAFA;">
+                            <th style="padding: 8px 16px; border-bottom: 1px solid #E0E0E0;">
+                                <input type="text" placeholder="Filter..." style="width: 100%; padding: 6px 8px; border: 1px solid #E0E0E0; border-radius: 4px; font-size: 13px; font-family: inherit; font-weight: 400;" />
+                            </th>
+                            <th style="padding: 8px 16px; border-bottom: 1px solid #E0E0E0;">
+                                <input type="text" placeholder="Filter..." style="width: 100%; padding: 6px 8px; border: 1px solid #E0E0E0; border-radius: 4px; font-size: 13px; font-family: inherit; font-weight: 400;" />
+                            </th>
+                            <th style="padding: 8px 16px; border-bottom: 1px solid #E0E0E0;">
+                                <select style="width: 100%; padding: 6px 8px; border: 1px solid #E0E0E0; border-radius: 4px; font-size: 13px; font-family: inherit; background: white; cursor: pointer;">
+                                    <option value="">All</option>
+                                    <option>Medicines</option>
+                                    <option>Vaccines</option>
+                                    <option>Supplies</option>
+                                </select>
+                            </th>
+                            <th class="numeric" style="padding: 8px 16px; border-bottom: 1px solid #E0E0E0;">
+                                <div style="display: flex; gap: 4px; justify-content: flex-end;">
+                                    <input type="number" placeholder="Min" style="width: 50px; padding: 6px 8px; border: 1px solid #E0E0E0; border-radius: 4px; font-size: 13px; font-family: inherit; text-align: right;" />
+                                    <input type="number" placeholder="Max" style="width: 50px; padding: 6px 8px; border: 1px solid #E0E0E0; border-radius: 4px; font-size: 13px; font-family: inherit; text-align: right;" />
+                                </div>
+                            </th>
+                            <th style="padding: 8px 16px; border-bottom: 1px solid #E0E0E0;">
+                                <select style="width: 100%; padding: 6px 8px; border: 1px solid #E0E0E0; border-radius: 4px; font-size: 13px; font-family: inherit; background: white; cursor: pointer;">
+                                    <option value="">All</option>
+                                    <option>In Stock</option>
+                                    <option>Low Stock</option>
+                                    <option>Out of Stock</option>
+                                </select>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>MED-PAR-500</td>
+                            <td>Paracetamol 500mg Tablet</td>
+                            <td>Medicines</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">5,240</td>
+                            <td><span class="status delivered"><span class="status-dot" style="background: var(--highlight-green);"></span>In Stock</span></td>
+                        </tr>
+                        <tr>
+                            <td>VAC-BCG-01</td>
+                            <td>BCG Vaccine 0.1ml Single Dose</td>
+                            <td>Vaccines</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">180</td>
+                            <td><span class="status in-transit"><span class="status-dot" style="background: var(--highlight-yellow);"></span>Low Stock</span></td>
+                        </tr>
+                        <tr>
+                            <td>SUP-SYR-5ML</td>
+                            <td>Disposable Syringe 5ml Sterile</td>
+                            <td>Supplies</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">12,800</td>
+                            <td><span class="status delivered"><span class="status-dot" style="background: var(--highlight-green);"></span>In Stock</span></td>
+                        </tr>
+                        <tr>
+                            <td>MED-AMX-250</td>
+                            <td>Amoxicillin 250mg Capsule</td>
+                            <td>Medicines</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">3,450</td>
+                            <td><span class="status delivered"><span class="status-dot" style="background: var(--highlight-green);"></span>In Stock</span></td>
+                        </tr>
+                        <tr>
+                            <td>VAC-MMR-01</td>
+                            <td>MMR Vaccine 0.5ml Vial</td>
+                            <td>Vaccines</td>
+                            <td class="numeric" style="font-variant-numeric: tabular-nums;">0</td>
+                            <td><span class="status new"><span class="status-dot" style="background: var(--highlight-red);"></span>Out of Stock</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="info-box info">
+                <strong>ℹ️ Filtering Features Shown</strong>
+                <ul>
+                    <li><strong>Global Search</strong> - "Search all columns..." text field in toolbar (top right)</li>
+                    <li><strong>Column Filters</strong> - Input fields below each header in grey row</li>
+                    <li><strong>Text filters</strong> - Item Code and Item Name (type to search)</li>
+                    <li><strong>Select dropdowns</strong> - Category and Status (choose from options)</li>
+                    <li><strong>Range filter</strong> - Stock Level (min/max numeric inputs)</li>
+                </ul>
+            </div>
+            
+            <h4>Why Column Filters + Global Search?</h4>
+            
+            <div style="background: #F8F8F8; padding: 16px; border-radius: 4px; margin: 16px 0;">
+                <p style="margin-bottom: 12px; font-weight: 500; color: var(--tmf-charcoal);">Column Filters (Primary):</p>
+                <ul style="margin: 0 0 16px 0; font-size: 14px;">
+                    <li><strong>Precise multi-criteria filtering</strong> - Filter by Status AND Supplier AND Date simultaneously</li>
+                    <li><strong>Always visible</strong> - Users see active filters at a glance (no hidden state)</li>
+                    <li><strong>Touch-friendly</strong> - Text inputs and dropdowns work well on tablets</li>
+                    <li><strong>Discoverable</strong> - Filter fields below headers make functionality obvious</li>
+                    <li><strong>Best for data-heavy tables</strong> - Shipments, inventory with 10+ columns</li>
+                </ul>
+                
+                <p style="margin-bottom: 12px; font-weight: 500; color: var(--tmf-charcoal);">Global Search (Secondary):</p>
+                <ul style="margin: 0; font-size: 14px;">
+                    <li><strong>Quick lookups</strong> - "Find anything with 'UNICEF'" searches all columns</li>
+                    <li><strong>Simple for non-technical users</strong> - Single search box, familiar pattern</li>
+                    <li><strong>Complements column filters</strong> - Use together for powerful filtering</li>
+                </ul>
+            </div>
+            
+            <h4>Filter Variants by Column Type</h4>
+            
+            <div class="code-block">
+<span class="com">// Recommended filter variants for Open mSupply data</span>
+<span class="kw">const</span> columns: MRT_ColumnDef[] = [
+  {
+    accessorKey: <span class="str">'status'</span>,
+    header: <span class="str">'Status'</span>,
+    filterVariant: <span class="str">'select'</span>,           <span class="com">// Dropdown for fixed options</span>
+    filterSelectOptions: [<span class="str">'New'</span>, <span class="str">'In Transit'</span>, <span class="str">'Delivered'</span>]
+  },
+  {
+    accessorKey: <span class="str">'supplier'</span>,
+    header: <span class="str">'Supplier'</span>,
+    filterVariant: <span class="str">'autocomplete'</span>,     <span class="com">// Autocomplete for long lists</span>
+  },
+  {
+    accessorKey: <span class="str">'createdDate'</span>,
+    header: <span class="str">'Created Date'</span>,
+    filterVariant: <span class="str">'date-range'</span>,       <span class="com">// Date range picker</span>
+  },
+  {
+    accessorKey: <span class="str">'totalUnits'</span>,
+    header: <span class="str">'Total Units'</span>,
+    filterVariant: <span class="str">'range'</span>,            <span class="com">// Min/max text fields</span>
+  },
+  {
+    accessorKey: <span class="str">'reference'</span>,
+    header: <span class="str">'Reference'</span>,
+    filterVariant: <span class="str">'text'</span>,             <span class="com">// Text search (default)</span>
+  },
+];
+            </div>
+            
+            <div style="background: #FFF8E1; padding: 12px 16px; border-left: 4px solid #F89A01; border-radius: 4px; margin: 16px 0;">
+                <p style="margin: 0; font-size: 14px;"><strong>💡 Not Recommended: Popover Filters</strong> - While MRT supports <code>columnFilterDisplayMode: 'popover'</code> (Excel-style filter icons), this approach hides filters by default, requires extra clicks, and is less intuitive for field users on tablets. Save popover mode for advanced users or desktop-only applications.</p>
+            </div>
+            
+            
             </div>
             
             <!-- Collapsible Section: Structure -->
@@ -1278,658 +1934,6 @@
                     <li>Buttons: 48×48px clickable area</li>
                     <li>Rows: 52px comfortable, 64px spacious</li>
                 </ul>
-            </div>
-            
-            <h3>Table Component Types</h3>
-            
-            <div class="info-box info">
-                <strong>ℹ️ MUI v9 provides two table solutions:</strong>
-                <ul>
-                    <li><strong>Basic Table (MUI Table)</strong> - Simple HTML <code>&lt;table&gt;</code> element. Use for: small datasets (&lt;100 rows), read-only displays, simple layouts, reports. <em>No built-in column resizing.</em></li>
-                    <li><strong>Material React Table (MRT)</strong> - Advanced component using nested <code>&lt;div&gt;</code> elements. Use for: large datasets (100+ rows), interactive features (sorting, filtering, selection, pagination), complex column types. <em>Includes built-in column resizing - users can drag column separators.</em></li>
-                </ul>
-            </div>
-            
-            <h4>Column Resizing</h4>
-            
-            <div style="background: #E3F2FD; padding: 12px 16px; border-left: 4px solid var(--tmf-blue); border-radius: 4px; margin: 16px 0;">
-                <p style="margin: 0; font-size: 14px;"><strong>🖱️ Interactive Resizing (Material React Table Only):</strong><br>
-                Material React Table (MRT) supports column resizing by default. Users can drag the right edge of any column header to adjust width. To disable for specific columns, set <code>resizable: false</code> in the column definition. For Basic Tables, column widths are fixed in code only.</p>
-            </div>
-            
-            <h4>Column Width Control</h4>
-            
-            <div class="info-box info">
-                <strong>ℹ️ How to Adjust Column Widths</strong>
-                <p style="margin-top: 8px; margin-bottom: 12px;">Column widths balance readability with space efficiency. Use fixed widths for predictable content (codes, dates, numbers) and flexible widths for variable content (names, descriptions).</p>
-            </div>
-            
-            <div style="background: #F8F8F8; padding: 16px; border-radius: 4px; margin: 16px 0;">
-                <p style="margin-bottom: 12px; font-weight: 500; color: var(--tmf-charcoal);">Basic Table (HTML) - Adjust in the <code>&lt;th&gt;</code> tag:</p>
-                <div class="code-block" style="margin: 0 0 16px 0;">
-<span class="com">// FIXED WIDTH - Use for predictable content</span>
-&lt;<span class="kw">th</span> style=<span class="str">"width: 120px;"</span>&gt;Item Code&lt;/<span class="kw">th</span>&gt;        <span class="com">// Codes: 100-150px</span>
-&lt;<span class="kw">th</span> style=<span class="str">"width: 110px;"</span>&gt;Expiry Date&lt;/<span class="kw">th</span>&gt;     <span class="com">// Dates: 100-120px</span>
-&lt;<span class="kw">th</span> class=<span class="str">"numeric"</span> style=<span class="str">"width: 100px;"</span>&gt;Quantity&lt;/<span class="kw">th</span>&gt;  <span class="com">// Numbers: 80-120px</span>
-
-<span class="com">// FLEXIBLE WIDTH - Takes remaining space</span>
-&lt;<span class="kw">th</span>&gt;Item Name&lt;/<span class="kw">th</span>&gt;  <span class="com">// No width = expands to fill available space</span>
-
-<span class="com">// EXAMPLE: Making Item Name wider</span>
-<span class="com">// Option 1: Reduce other columns (120px → 100px)</span>
-<span class="com">// Option 2: Add min-width to prevent it getting too narrow</span>
-&lt;<span class="kw">th</span> style=<span class="str">"min-width: 200px;"</span>&gt;Item Name&lt;/<span class="kw">th</span>&gt;
-                </div>
-                
-                <p style="margin-bottom: 12px; font-weight: 500; color: var(--tmf-charcoal);">Material React Table (MRT) - Set in column definitions:</p>
-                <div class="code-block" style="margin: 0;">
-<span class="com">// FIXED WIDTH - Exact pixel value</span>
-{ 
-  field: <span class="str">'itemCode'</span>, 
-  headerName: <span class="str">'Item Code'</span>, 
-  width: <span class="num">140</span>         <span class="com">// Fixed at 140px</span>
-}
-
-<span class="com">// FLEXIBLE WIDTH - Proportional to available space</span>
-{ 
-  field: <span class="str">'itemName'</span>, 
-  headerName: <span class="str">'Item Name'</span>, 
-  flex: <span class="num">1</span>            <span class="com">// Takes remaining space</span>
-}
-
-{ 
-  field: <span class="str">'supplier'</span>, 
-  headerName: <span class="str">'Supplier'</span>, 
-  flex: <span class="num">2</span>            <span class="com">// Gets 2x space compared to flex: 1</span>
-}
-
-<span class="com">// MINIMUM WIDTH - Prevents column getting too narrow</span>
-{ 
-  field: <span class="str">'reference'</span>, 
-  headerName: <span class="str">'Reference'</span>, 
-  flex: <span class="num">1</span>,
-  minWidth: <span class="num">150</span>      <span class="com">// Won't shrink below 150px</span>
-}
-
-<span class="com">// DISABLE RESIZING - Prevent user from dragging to resize</span>
-{ 
-  field: <span class="str">'status'</span>, 
-  headerName: <span class="str">'Status'</span>, 
-  width: <span class="num">140</span>,
-  resizable: <span class="kw">false</span>   <span class="com">// User cannot resize this column</span>
-}
-
-<span class="com">// CONSTRAIN RESIZING - Set min/max limits</span>
-{ 
-  field: <span class="str">'supplier'</span>, 
-  headerName: <span class="str">'Supplier'</span>, 
-  width: <span class="num">180</span>,
-  minWidth: <span class="num">120</span>,    <span class="com">// Can't resize smaller than 120px</span>
-  maxWidth: <span class="num">300</span>     <span class="com">// Can't resize larger than 300px</span>
-}
-                </div>
-            </div>
-            
-            <div style="background: #E3F2FD; padding: 12px 16px; border-left: 4px solid var(--tmf-blue); border-radius: 4px; margin: 16px 0;">
-                <p style="margin: 0; font-size: 14px;"><strong>🖱️ How Users Resize Columns in MRT:</strong><br>
-                Hover over the <strong>right edge of any column header</strong> - the cursor changes to a resize handle (↔). Click and drag left/right to adjust width. Release to set the new width. This works for all columns by default unless you set <code>resizable: false</code>.</p>
-            </div>
-            
-            <div style="background: #FFF8E1; padding: 12px 16px; border-left: 4px solid #F89A01; border-radius: 4px; margin: 16px 0;">
-                <p style="margin: 0; font-size: 14px;"><strong>💡 Tip:</strong> Start with these recommended widths, then adjust based on your actual data:<br>
-                • <strong>Codes/IDs:</strong> 100-150px<br>
-                • <strong>Dates:</strong> 100-120px<br>
-                • <strong>Small numbers:</strong> 80-100px (e.g., Quantity)<br>
-                • <strong>Large numbers:</strong> 110-140px (e.g., Currency with $ sign)<br>
-                • <strong>Short text:</strong> 120-160px (e.g., Status)<br>
-                • <strong>Long text:</strong> Use flex/no width (e.g., Item Name, Supplier)</p>
-            </div>
-            
-            <h4>Header Text Wrapping & Vertical Alignment</h4>
-            
-            <div class="info-box info">
-                <strong>📝 Header Text Wrapping - Choose Your Approach</strong>
-                <p style="margin-top: 8px; margin-bottom: 8px;"><strong>Option 1 - No Wrapping (nowrap):</strong> Use <code>white-space: nowrap</code> for compact tables with short header labels. Keeps header height consistent.</p>
-                <p style="margin: 0;"><strong>Option 2 - Allow Wrapping (wrap):</strong> Let headers wrap to 2-3 lines for longer labels. Better for small screens and when abbreviations reduce clarity. Set a <code>max-height</code> on headers to prevent excessive wrapping.</p>
-            </div>
-            
-            <div style="background: #FFF8E1; padding: 12px 16px; border-left: 4px solid #F89A01; border-radius: 4px; margin: 16px 0;">
-                <p style="margin: 0; font-size: 14px;"><strong>💡 For Open mSupply:</strong> Consider allowing wrapping for tablet/field use. Long clinical terms like "Temperature-Sensitive Vaccine Stock" are clearer when wrapped than abbreviated to "Temp-Sens Vaccine".</p>
-            </div>
-            
-            <div style="background: #F8F8F8; padding: 16px; border-radius: 4px; margin: 16px 0;">
-                <p style="margin-bottom: 12px; font-weight: 500; color: var(--tmf-charcoal);">Vertical Alignment Standards:</p>
-                <div class="code-block" style="margin: 0 0 12px 0;">
-<span class="com">// HEADERS - Always middle-aligned</span>
-th {
-  vertical-align: middle;  <span class="com">// Centers text vertically in header cell</span>
-}
-
-<span class="com">// DATA CELLS - Top-aligned for multi-line content</span>
-td {
-  vertical-align: top;     <span class="com">// Aligns to top when content wraps</span>
-}
-
-<span class="com">// EXCEPTION: Checkbox cells - Always middle-aligned</span>
-td:has(input[type="checkbox"]),
-th:has(input[type="checkbox"]) {
-  vertical-align: middle;  <span class="com">// Centers checkbox in cell</span>
-}
-                </div>
-                <p style="margin: 0; font-size: 13px; color: rgba(0, 0, 0, 0.6);"><strong>Why?</strong> Top-aligned data cells keep the first line aligned across rows when content wraps (long names, descriptions), making tables easier to scan. <strong>Exception:</strong> Checkbox cells use middle-align to center the checkbox vertically in the cell, even when adjacent text cells wrap to multiple lines.</p>
-            </div>
-            
-            <h4>Default Column Width Behavior</h4>
-            
-            <div class="info-box info">
-                <strong>ℹ️ Material React Table Width Defaults</strong>
-                <p style="margin-top: 8px; margin-bottom: 0;">MRT does NOT use percentage widths. <strong>Without explicit <code>size:</code> values, columns auto-size based on content</strong> up to a reasonable maximum, then the table becomes horizontally scrollable. This prevents text truncation. <strong>Always set explicit sizes for predictable layouts.</strong></p>
-            </div>
-            
-            <div style="background: #FFF8E1; padding: 12px 16px; border-left: 4px solid #F89A01; border-radius: 4px; margin: 16px 0;">
-                <p style="margin: 0; font-size: 14px;"><strong>💡 Width Strategy:</strong><br>
-                <strong>Recommended:</strong> Set explicit <code>size:</code> for all columns based on content type<br>
-                <strong>Or mix:</strong> Fixed <code>size:</code> for structured data (codes, dates) + <code>grow: true</code> for text (names, descriptions)<br>
-                <strong>With constraints:</strong> Use <code>minSize:</code> and <code>maxSize:</code> to prevent columns getting too narrow/wide</p>
-            </div>
-            
-            <h4>Basic Table Example</h4>
-            
-            <p style="margin-bottom: 12px; font-size: 14px; color: var(--tmf-blue);">Simple read-only table with MUI v9 styling - no selection, sorting, or pagination</p>
-            
-            <div class="demo">
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 140px;">Item Code</th>
-                            <th>Item Name</th>
-                            <th style="width: 120px;">Batch Number</th>
-                            <th style="width: 110px;">Expiry Date</th>
-                            <th class="numeric" style="width: 100px;">Quantity</th>
-                            <th class="numeric" style="width: 110px;">Unit Price</th>
-                            <th class="numeric" style="width: 120px;">Total Value</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>MED-ASA-300</td>
-                            <td>Acetylsalicylic Acid 300mg Tablet</td>
-                            <td>B2487-594</td>
-                            <td>01/10/2028</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">2,000</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$0.12</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$240.00</td>
-                        </tr>
-                        <tr>
-                            <td>MED-AMX-125S</td>
-                            <td>Amoxicillin 125mg/5ml Suspension</td>
-                            <td>B2484-662</td>
-                            <td>17/03/2029</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">150</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$3.45</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$517.50</td>
-                        </tr>
-                        <tr>
-                            <td>MED-FUR-20I</td>
-                            <td>Furosemide 10mg/ml Solution 2ml</td>
-                            <td>B2459-750</td>
-                            <td>11/10/2028</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">450</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$1.20</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$540.00</td>
-                        </tr>
-                        <tr>
-                            <td>MED-PAR-500</td>
-                            <td>Paracetamol 500mg Tablet</td>
-                            <td>B2491-328</td>
-                            <td>22/08/2027</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">5,000</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$0.08</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$400.00</td>
-                        </tr>
-                        <tr>
-                            <td>MED-IBU-200</td>
-                            <td>Ibuprofen 200mg Tablet</td>
-                            <td>B2488-447</td>
-                            <td>15/12/2028</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">3,200</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$0.15</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$480.00</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            
-            <div class="info-box success">
-                <strong>✓ Basic Table Standards</strong>
-                <ul>
-                    <li>Subtle grey header background (#FAFAFA) for visual hierarchy</li>
-                    <li>White data rows (clean, simple)</li>
-                    <li>Compact density (~48px rows)</li>
-                    <li>Fixed widths for structured columns (codes, dates, numbers)</li>
-                    <li>Flexible width for Item Name (no width set = takes remaining space)</li>
-                    <li>Right-aligned numbers with tabular-nums</li>
-                    <li>Hover effect on rows for scannability</li>
-                </ul>
-            </div>
-            
-            <h3 id="table-example">Material React Table Example (Advanced)</h3>
-            
-            <p style="margin-bottom: 12px; font-size: 14px; color: var(--tmf-blue);">Advanced interactive table with selection, sorting, and pagination - use for large datasets (100+ rows). MRT supports multiple filtering UIs: column filters below headers, global search, or popover filters.</p>
-            
-            <div class="demo">
-                <!-- Toolbar with title and actions -->
-                <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; border-bottom: 1px solid #E0E0E0;">
-                    <div>
-                        <h6 style="margin: 0 0 4px 0; font-size: 20px; font-weight: 500; color: var(--tmf-charcoal);">Inbound Shipments</h6>
-                        <div style="font-size: 14px; color: rgba(0, 0, 0, 0.6);">12 shipments • 1 selected</div>
-                    </div>
-                    <div style="display: flex; gap: 12px; align-items: center;">
-                        <button class="btn btn-secondary">Export</button>
-                        <button class="btn btn-primary">+ New Shipment</button>
-                    </div>
-                </div>
-                
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 48px; vertical-align: middle;"><input type="checkbox" class="checkbox"></th>
-                            <th class="sortable" style="width: 140px;">Shipment ID</th>
-                            <th class="sortable" style="width: 180px;">Supplier <span style="font-size: 18px; opacity: 0.5; margin-left: 4px; vertical-align: middle;">↓</span></th>
-                            <th class="sortable">Reference</th>
-                            <th class="sortable" style="width: 120px;">Created Date</th>
-                            <th class="sortable numeric" style="width: 100px;">Line Items</th>
-                            <th class="sortable numeric" style="width: 120px;">Total Units</th>
-                            <th class="sortable numeric" style="width: 130px;">Value (USD)</th>
-                            <th style="width: 140px;">Status</th>
-                            <th style="text-align: right; width: 80px;">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td style="vertical-align: middle;"><input type="checkbox" class="checkbox"></td>
-                            <td>SHP-2024-1847</td>
-                            <td>UNICEF Supply Division</td>
-                            <td>PO-UNICEF-09234</td>
-                            <td>23/05/2026</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">12</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">8,450</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$24,680.00</td>
-                            <td><span class="status in-transit"><span class="status-dot" style="background: var(--highlight-yellow);"></span>In Transit</span></td>
-                            <td style="text-align: right;">
-                                <button style="padding: 6px 12px; border: 1px solid #E0E0E0; border-radius: 4px; cursor: pointer; font-size: 13px; background: white; font-family: inherit;">View</button>
-                            </td>
-                        </tr>
-                        <tr class="selected">
-                            <td style="vertical-align: middle;"><input type="checkbox" class="checkbox" checked=""></td>
-                            <td>SHP-2024-1846</td>
-                            <td>MSF Logistics</td>
-                            <td>MSF-DRC-05-2026</td>
-                            <td>22/05/2026</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">8</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">3,200</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$12,450.00</td>
-                            <td><span class="status delivered"><span class="status-dot" style="background: var(--highlight-green);"></span>Delivered</span></td>
-                            <td style="text-align: right;">
-                                <button style="padding: 6px 12px; border: 1px solid #E0E0E0; border-radius: 4px; cursor: pointer; font-size: 13px; background: white; font-family: inherit;">View</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: middle;"><input type="checkbox" class="checkbox"></td>
-                            <td>SHP-2024-1845</td>
-                            <td>WHO Essential Medicines</td>
-                            <td>WHO-AFG-Q2-2026</td>
-                            <td>21/05/2026</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">24</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">15,670</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$48,920.00</td>
-                            <td><span class="status in-transit"><span class="status-dot" style="background: var(--highlight-yellow);"></span>In Transit</span></td>
-                            <td style="text-align: right;">
-                                <button style="padding: 6px 12px; border: 1px solid #E0E0E0; border-radius: 4px; cursor: pointer; font-size: 13px; background: white; font-family: inherit;">View</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: middle;"><input type="checkbox" class="checkbox"></td>
-                            <td>SHP-2024-1844</td>
-                            <td>Global Fund Procurement</td>
-                            <td>GF-MAL-04-2026</td>
-                            <td>20/05/2026</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">6</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">1,800</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$8,950.00</td>
-                            <td><span class="status delivered"><span class="status-dot" style="background: var(--highlight-green);"></span>Delivered</span></td>
-                            <td style="text-align: right;">
-                                <button style="padding: 6px 12px; border: 1px solid #E0E0E0; border-radius: 4px; cursor: pointer; font-size: 13px; background: white; font-family: inherit;">View</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: middle;"><input type="checkbox" class="checkbox"></td>
-                            <td>SHP-2024-1843</td>
-                            <td>GAVI Alliance Supply Chain</td>
-                            <td>GAVI-COVAX-2026-Q2</td>
-                            <td>19/05/2026</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">18</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">22,400</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$67,200.00</td>
-                            <td><span class="status in-transit"><span class="status-dot" style="background: var(--highlight-yellow);"></span>In Transit</span></td>
-                            <td style="text-align: right;">
-                                <button style="padding: 6px 12px; border: 1px solid #E0E0E0; border-radius: 4px; cursor: pointer; font-size: 13px; background: white; font-family: inherit;">View</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: middle;"><input type="checkbox" class="checkbox"></td>
-                            <td>SHP-2024-1842</td>
-                            <td>Clinton Health Access Initiative</td>
-                            <td>CHAI-HIV-2026-05</td>
-                            <td>18/05/2026</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">9</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">4,500</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$18,750.00</td>
-                            <td><span class="status new"><span class="status-dot" style="background: var(--highlight-blue);"></span>New</span></td>
-                            <td style="text-align: right;">
-                                <button style="padding: 6px 12px; border: 1px solid #E0E0E0; border-radius: 4px; cursor: pointer; font-size: 13px; background: white; font-family: inherit;">View</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: middle;"><input type="checkbox" class="checkbox"></td>
-                            <td>SHP-2024-1841</td>
-                            <td>PATH Procurement Services</td>
-                            <td>PATH-TB-2026-Q2</td>
-                            <td>17/05/2026</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">15</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">6,800</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$31,400.00</td>
-                            <td><span class="status delivered"><span class="status-dot" style="background: var(--highlight-green);"></span>Delivered</span></td>
-                            <td style="text-align: right;">
-                                <button style="padding: 6px 12px; border: 1px solid #E0E0E0; border-radius: 4px; cursor: pointer; font-size: 13px; background: white; font-family: inherit;">View</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: middle;"><input type="checkbox" class="checkbox"></td>
-                            <td>SHP-2024-1840</td>
-                            <td>USAID Global Health Supply Chain</td>
-                            <td>USAID-GHSC-AFG-2026</td>
-                            <td>16/05/2026</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">31</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">28,900</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$89,340.00</td>
-                            <td><span class="status in-transit"><span class="status-dot" style="background: var(--highlight-yellow);"></span>In Transit</span></td>
-                            <td style="text-align: right;">
-                                <button style="padding: 6px 12px; border: 1px solid #E0E0E0; border-radius: 4px; cursor: pointer; font-size: 13px; background: white; font-family: inherit;">View</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: middle;"><input type="checkbox" class="checkbox"></td>
-                            <td>SHP-2024-1839</td>
-                            <td>UNFPA Supplies</td>
-                            <td>UNFPA-RH-2026-05</td>
-                            <td>15/05/2026</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">7</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">2,100</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$9,450.00</td>
-                            <td><span class="status delivered"><span class="status-dot" style="background: var(--highlight-green);"></span>Delivered</span></td>
-                            <td style="text-align: right;">
-                                <button style="padding: 6px 12px; border: 1px solid #E0E0E0; border-radius: 4px; cursor: pointer; font-size: 13px; background: white; font-family: inherit;">View</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: middle;"><input type="checkbox" class="checkbox"></td>
-                            <td>SHP-2024-1838</td>
-                            <td>International Dispensary Association</td>
-                            <td>IDA-GEN-2026-123</td>
-                            <td>14/05/2026</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">11</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">5,600</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$22,800.00</td>
-                            <td><span class="status new"><span class="status-dot" style="background: var(--highlight-blue);"></span>New</span></td>
-                            <td style="text-align: right;">
-                                <button style="padding: 6px 12px; border: 1px solid #E0E0E0; border-radius: 4px; cursor: pointer; font-size: 13px; background: white; font-family: inherit;">View</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: middle;"><input type="checkbox" class="checkbox"></td>
-                            <td>SHP-2024-1837</td>
-                            <td>Médecins Sans Frontières</td>
-                            <td>MSF-EMG-2026-042</td>
-                            <td>13/05/2026</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">19</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">11,200</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$42,680.00</td>
-                            <td><span class="status delivered"><span class="status-dot" style="background: var(--highlight-green);"></span>Delivered</span></td>
-                            <td style="text-align: right;">
-                                <button style="padding: 6px 12px; border: 1px solid #E0E0E0; border-radius: 4px; cursor: pointer; font-size: 13px; background: white; font-family: inherit;">View</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: middle;"><input type="checkbox" class="checkbox"></td>
-                            <td>SHP-2024-1836</td>
-                            <td>Crown Agents</td>
-                            <td>CA-MOH-2026-Q2</td>
-                            <td>12/05/2026</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">14</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">9,300</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">$36,250.00</td>
-                            <td><span class="status in-transit"><span class="status-dot" style="background: var(--highlight-yellow);"></span>In Transit</span></td>
-                            <td style="text-align: right;">
-                                <button style="padding: 6px 12px; border: 1px solid #E0E0E0; border-radius: 4px; cursor: pointer; font-size: 13px; background: white; font-family: inherit;">View</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-                <!-- Pagination footer -->
-                <div style="display: flex; justify-content: flex-end; align-items: center; padding: 8px 16px; border-top: 1px solid #E0E0E0; font-size: 14px; color: rgba(0, 0, 0, 0.87); gap: 24px;">
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="color: rgba(0, 0, 0, 0.6);">Rows per page:</span>
-                        <select style="border: none; background: transparent; font-size: 14px; color: rgba(0, 0, 0, 0.87); cursor: pointer; font-family: inherit; outline: none;">
-                            <option>10</option>
-                            <option>25</option>
-                            <option>50</option>
-                            <option>100</option>
-                        </select>
-                    </div>
-                    <div style="color: rgba(0, 0, 0, 0.6);">1-12 of 47</div>
-                    <div style="display: flex; gap: 8px; align-items: center;">
-                        <button style="padding: 6px; border: none; background: transparent; cursor: not-allowed; font-size: 18px; color: rgba(0, 0, 0, 0.26); min-width: 32px; font-family: inherit;" disabled>‹</button>
-                        <button style="padding: 6px; border: none; background: transparent; cursor: pointer; font-size: 18px; color: rgba(0, 0, 0, 0.87); min-width: 32px; font-family: inherit;">›</button>
-                    </div>
-                </div>
-            </div>
-            
-<div style="background: #E8F5E9; padding: 12px 16px; border-left: 4px solid var(--highlight-green); border-radius: 4px; margin: 16px 0;">
-                <p style="margin: 0; font-size: 14px;"><strong>ℹ️ Note:</strong> This is a <strong>static HTML mockup</strong> showing what a Material React Table looks like. In your actual React application, the real <code>&lt;MaterialReactTable&gt;</code> component would have interactive sorting, filtering, column resizing, and all MRT features fully functional.</p>
-            </div>
-            
-            <div style="background: #E3F2FD; padding: 12px 16px; border-left: 4px solid var(--tmf-blue); border-radius: 4px; font-size: 13px; color: rgba(0, 0, 0, 0.87); margin: 16px 0;">
-                <strong>🔍 MRT Filtering Options:</strong> Material React Table supports <strong>(1) Column Filters</strong> - text fields below each header (enable with <code>showColumnFilters: true</code>), <strong>(2) Global Search</strong> - single search box in toolbar for all columns (enable with <code>showGlobalFilter: true</code>), or <strong>(3) Popover Filters</strong> - filter icons in headers that open filter popovers (set <code>columnFilterDisplayMode: 'popover'</code>). This example shows the table without active filters displayed.
-            </div>
-            
-            <div class="info-box success">
-                <strong>✓ Material React Table (MRT) Standards Applied</strong>
-                <ul>
-                    <li>Subtle grey header background (#FAFAFA) for better visual hierarchy</li>
-                    <li>White row backgrounds (clean, no zebra striping)</li>
-                    <li>Compact density (~48px rows for data-heavy contexts)</li>
-                    <li>Sortable columns with visible orange ↑ ↓ indicators when sorted</li>
-                    <li>Interactive row selection with header "Select All" checkbox</li>
-                    <li>Selection highlight: subtle blue background</li>
-                    <li>Hover states: light grey on all rows, stronger blue on selected</li>
-                    <li>Right-aligned numbers with tabular-nums</li>
-                    <li>Status chips with 16px border-radius (pill shape)</li>
-                    <li>Toolbar with title, metadata, and action buttons</li>
-                    
-                    <li>Default pagination: TablePagination style with rows-per-page dropdown and prev/next arrows (use <code>paginationDisplayMode: 'pages'</code> for numbered buttons)</li>
-                </ul>
-            </div>
-            
-            
-            <h3>Filtering Strategy for Open mSupply</h3>
-            
-            <div class="info-box success">
-                <strong>✓ Recommended Approach: Column Filters + Global Search</strong>
-                <p style="margin-top: 8px; margin-bottom: 0;">Based on Open mSupply's health supply chain context, tablet deployment, and data-heavy tables, we recommend using <strong>Column Filters</strong> (text fields below headers) as the primary filtering method, combined with <strong>Global Search</strong> for quick lookups.</p>
-            </div>
-            
-            <h4>Filtering Example</h4>
-            
-            <p style="margin-bottom: 12px; font-size: 14px; color: var(--tmf-blue);">Interactive example showing column filters below headers + global search in toolbar</p>
-            
-            <div class="demo">
-                <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid #E0E0E0;">
-                    <h6 style="margin: 0; font-size: 20px; font-weight: 500; color: var(--tmf-charcoal);">Stock Items</h6>
-                    <div style="display: flex; gap: 12px; align-items: center;">
-                        <input type="text" placeholder="Search all columns..." style="padding: 8px 12px; border: 1px solid #E0E0E0; border-radius: 4px; font-size: 14px; width: 220px; font-family: inherit;" />
-                        <button class="btn btn-primary">+ New Item</button>
-                    </div>
-                </div>
-                
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 140px;">Item Code</th>
-                            <th style="width: 250px;">Item Name</th>
-                            <th style="width: 140px;">Category</th>
-                            <th class="numeric" style="width: 120px;">Stock Level</th>
-                            <th style="width: 140px;">Status</th>
-                        </tr>
-                        <tr style="background: #FAFAFA;">
-                            <th style="padding: 8px 16px; border-bottom: 1px solid #E0E0E0;">
-                                <input type="text" placeholder="Filter..." style="width: 100%; padding: 6px 8px; border: 1px solid #E0E0E0; border-radius: 4px; font-size: 13px; font-family: inherit; font-weight: 400;" />
-                            </th>
-                            <th style="padding: 8px 16px; border-bottom: 1px solid #E0E0E0;">
-                                <input type="text" placeholder="Filter..." style="width: 100%; padding: 6px 8px; border: 1px solid #E0E0E0; border-radius: 4px; font-size: 13px; font-family: inherit; font-weight: 400;" />
-                            </th>
-                            <th style="padding: 8px 16px; border-bottom: 1px solid #E0E0E0;">
-                                <select style="width: 100%; padding: 6px 8px; border: 1px solid #E0E0E0; border-radius: 4px; font-size: 13px; font-family: inherit; background: white; cursor: pointer;">
-                                    <option value="">All</option>
-                                    <option>Medicines</option>
-                                    <option>Vaccines</option>
-                                    <option>Supplies</option>
-                                </select>
-                            </th>
-                            <th class="numeric" style="padding: 8px 16px; border-bottom: 1px solid #E0E0E0;">
-                                <div style="display: flex; gap: 4px; justify-content: flex-end;">
-                                    <input type="number" placeholder="Min" style="width: 50px; padding: 6px 8px; border: 1px solid #E0E0E0; border-radius: 4px; font-size: 13px; font-family: inherit; text-align: right;" />
-                                    <input type="number" placeholder="Max" style="width: 50px; padding: 6px 8px; border: 1px solid #E0E0E0; border-radius: 4px; font-size: 13px; font-family: inherit; text-align: right;" />
-                                </div>
-                            </th>
-                            <th style="padding: 8px 16px; border-bottom: 1px solid #E0E0E0;">
-                                <select style="width: 100%; padding: 6px 8px; border: 1px solid #E0E0E0; border-radius: 4px; font-size: 13px; font-family: inherit; background: white; cursor: pointer;">
-                                    <option value="">All</option>
-                                    <option>In Stock</option>
-                                    <option>Low Stock</option>
-                                    <option>Out of Stock</option>
-                                </select>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>MED-PAR-500</td>
-                            <td>Paracetamol 500mg Tablet</td>
-                            <td>Medicines</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">5,240</td>
-                            <td><span class="status delivered"><span class="status-dot" style="background: var(--highlight-green);"></span>In Stock</span></td>
-                        </tr>
-                        <tr>
-                            <td>VAC-BCG-01</td>
-                            <td>BCG Vaccine 0.1ml Single Dose</td>
-                            <td>Vaccines</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">180</td>
-                            <td><span class="status in-transit"><span class="status-dot" style="background: var(--highlight-yellow);"></span>Low Stock</span></td>
-                        </tr>
-                        <tr>
-                            <td>SUP-SYR-5ML</td>
-                            <td>Disposable Syringe 5ml Sterile</td>
-                            <td>Supplies</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">12,800</td>
-                            <td><span class="status delivered"><span class="status-dot" style="background: var(--highlight-green);"></span>In Stock</span></td>
-                        </tr>
-                        <tr>
-                            <td>MED-AMX-250</td>
-                            <td>Amoxicillin 250mg Capsule</td>
-                            <td>Medicines</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">3,450</td>
-                            <td><span class="status delivered"><span class="status-dot" style="background: var(--highlight-green);"></span>In Stock</span></td>
-                        </tr>
-                        <tr>
-                            <td>VAC-MMR-01</td>
-                            <td>MMR Vaccine 0.5ml Vial</td>
-                            <td>Vaccines</td>
-                            <td class="numeric" style="font-variant-numeric: tabular-nums;">0</td>
-                            <td><span class="status new"><span class="status-dot" style="background: var(--highlight-red);"></span>Out of Stock</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            
-            <div class="info-box info">
-                <strong>ℹ️ Filtering Features Shown</strong>
-                <ul>
-                    <li><strong>Global Search</strong> - "Search all columns..." text field in toolbar (top right)</li>
-                    <li><strong>Column Filters</strong> - Input fields below each header in grey row</li>
-                    <li><strong>Text filters</strong> - Item Code and Item Name (type to search)</li>
-                    <li><strong>Select dropdowns</strong> - Category and Status (choose from options)</li>
-                    <li><strong>Range filter</strong> - Stock Level (min/max numeric inputs)</li>
-                </ul>
-            </div>
-            
-            <h4>Why Column Filters + Global Search?</h4>
-            
-            <div style="background: #F8F8F8; padding: 16px; border-radius: 4px; margin: 16px 0;">
-                <p style="margin-bottom: 12px; font-weight: 500; color: var(--tmf-charcoal);">Column Filters (Primary):</p>
-                <ul style="margin: 0 0 16px 0; font-size: 14px;">
-                    <li><strong>Precise multi-criteria filtering</strong> - Filter by Status AND Supplier AND Date simultaneously</li>
-                    <li><strong>Always visible</strong> - Users see active filters at a glance (no hidden state)</li>
-                    <li><strong>Touch-friendly</strong> - Text inputs and dropdowns work well on tablets</li>
-                    <li><strong>Discoverable</strong> - Filter fields below headers make functionality obvious</li>
-                    <li><strong>Best for data-heavy tables</strong> - Shipments, inventory with 10+ columns</li>
-                </ul>
-                
-                <p style="margin-bottom: 12px; font-weight: 500; color: var(--tmf-charcoal);">Global Search (Secondary):</p>
-                <ul style="margin: 0; font-size: 14px;">
-                    <li><strong>Quick lookups</strong> - "Find anything with 'UNICEF'" searches all columns</li>
-                    <li><strong>Simple for non-technical users</strong> - Single search box, familiar pattern</li>
-                    <li><strong>Complements column filters</strong> - Use together for powerful filtering</li>
-                </ul>
-            </div>
-            
-            <h4>Filter Variants by Column Type</h4>
-            
-            <div class="code-block">
-<span class="com">// Recommended filter variants for Open mSupply data</span>
-<span class="kw">const</span> columns: MRT_ColumnDef[] = [
-  {
-    accessorKey: <span class="str">'status'</span>,
-    header: <span class="str">'Status'</span>,
-    filterVariant: <span class="str">'select'</span>,           <span class="com">// Dropdown for fixed options</span>
-    filterSelectOptions: [<span class="str">'New'</span>, <span class="str">'In Transit'</span>, <span class="str">'Delivered'</span>]
-  },
-  {
-    accessorKey: <span class="str">'supplier'</span>,
-    header: <span class="str">'Supplier'</span>,
-    filterVariant: <span class="str">'autocomplete'</span>,     <span class="com">// Autocomplete for long lists</span>
-  },
-  {
-    accessorKey: <span class="str">'createdDate'</span>,
-    header: <span class="str">'Created Date'</span>,
-    filterVariant: <span class="str">'date-range'</span>,       <span class="com">// Date range picker</span>
-  },
-  {
-    accessorKey: <span class="str">'totalUnits'</span>,
-    header: <span class="str">'Total Units'</span>,
-    filterVariant: <span class="str">'range'</span>,            <span class="com">// Min/max text fields</span>
-  },
-  {
-    accessorKey: <span class="str">'reference'</span>,
-    header: <span class="str">'Reference'</span>,
-    filterVariant: <span class="str">'text'</span>,             <span class="com">// Text search (default)</span>
-  },
-];
-            </div>
-            
-            <div style="background: #FFF8E1; padding: 12px 16px; border-left: 4px solid #F89A01; border-radius: 4px; margin: 16px 0;">
-                <p style="margin: 0; font-size: 14px;"><strong>💡 Not Recommended: Popover Filters</strong> - While MRT supports <code>columnFilterDisplayMode: 'popover'</code> (Excel-style filter icons), this approach hides filters by default, requires extra clicks, and is less intuitive for field users on tablets. Save popover mode for advanced users or desktop-only applications.</p>
             </div>
             
             <h3>Material React Table Implementation</h3>
